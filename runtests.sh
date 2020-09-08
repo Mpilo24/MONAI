@@ -113,12 +113,12 @@ function compile_cpp {
     echo "Compiling and installing MONAI cpp extensions..."
     # depends on setup.py behaviour for building
     # currently setup.py uses environment variables: BUILD_MONAI and FORCE_CUDA
-    ${cmdPrefix}python setup.py -v develop --uninstall
+    ${cmdPrefix}python setup.py develop --user --uninstall
     if [[ "$OSTYPE" == "darwin"* ]];
     then  # clang for mac os
-        CC=clang CXX=clang++ ${cmdPrefix}python setup.py -v develop
+        CC=clang CXX=clang++ ${cmdPrefix}python setup.py develop --user
     else
-        ${cmdPrefix}python setup.py -v develop
+        ${cmdPrefix}python setup.py develop --user
     fi
 }
 
@@ -137,7 +137,7 @@ function clang_format {
 function clean_py {
     # uninstall the development package
     echo "Uninstalling MONAI development files..."
-    ${cmdPrefix}python setup.py -v develop --uninstall
+    ${cmdPrefix}python setup.py develop --user --uninstall
 
     # remove temporary files (in the directory of this script)
     TO_CLEAN="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
